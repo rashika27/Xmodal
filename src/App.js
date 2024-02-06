@@ -9,6 +9,7 @@ const XModal = () => {
     dob: "",
     phone: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -25,17 +26,19 @@ const XModal = () => {
       !formData.dob ||
       !formData.phone
     ) {
-      alert("Please fill out all the fields.");
+      setErrorMessage("Please fill out all the fields.");
       return;
     }
 
     if (!formData.email.includes("@")) {
-      alert("Invalid email. Please check your email address.");
+      setErrorMessage("Invalid email. Please check your email address.");
       return;
     }
 
     if (formData.phone.length !== 10 || isNaN(formData.phone)) {
-      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      setErrorMessage(
+        "Invalid phone number. Please enter a 10-digit phone number.",
+      );
       return;
     }
 
@@ -43,74 +46,83 @@ const XModal = () => {
     const currentDate = new Date();
 
     if (dobDate > currentDate) {
-      alert("Invalid date of birth. Date of birth cannot be in the future.");
+      setErrorMessage("Invalid date of birth. Please enter a valid date.");
       return;
     }
 
-    // Reset form data and close modal
+    // Reset form data, error message, and close modal
     setFormData({
       username: "",
       email: "",
       dob: "",
       phone: "",
     });
+    setErrorMessage("");
     setIsOpen(false);
   };
 
+  const handleCloseModal = (e) => {
+    if (e.target.className === "modal") {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className="modal">
+    <div className={`modal ${isOpen ? "open" : ""}`} onClick={handleCloseModal}>
       <h1>User Details Modal</h1>
       <button onClick={() => setIsOpen(true)}>Open Form</button>
-      {isOpen && (
-        <div className="modal-content">
-          <form>
-            <div className="form-group">
-              <h2>Username:</h2>
-              <input
-                type="text"
-                id="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <h2>Email:</h2>
-              <input
-                type="email"
-                id="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <h2>Phone Number:</h2>
-              <input
-                type="tel"
-                id="phone"
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <h2>Date of Birth:</h2>
-              <input
-                type="date"
-                id="dob"
-                value={formData.dob}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <button className="submit-button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </form>
-          <div className="modal-close" onClick={() => setIsOpen(false)}></div>
-        </div>
-      )}
+      <div
+        className={`modal-content ${isOpen ? "open" : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <form>
+          <div className="form-group">
+            <h2>Username:</h2>
+            <input
+              type="text"
+              id="username"
+              value={formData.username}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <h2>Email:</h2>
+            <input
+              type="email"
+              id="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <h2>Phone Number:</h2>
+            <input
+              type="tel"
+              id="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <h2>Date of Birth:</h2>
+            <input
+              type="date"
+              id="dob"
+              value={formData.dob}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <button className="submit-button" onClick={handleSubmit}>
+            Submit
+          </button>
+        </form>
+        <div className="modal-close"></div>
+      </div>
     </div>
   );
 };
