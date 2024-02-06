@@ -43,7 +43,7 @@ const XModal = () => {
     const currentDate = new Date();
 
     if (dobDate > currentDate) {
-      alert("Invalid date of birth. Please enter a valid date.");
+      alert("Invalid date of birth. Date of birth cannot be in the future.");
       return;
     }
 
