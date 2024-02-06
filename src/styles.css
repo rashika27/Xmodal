@@ -1,4 +1,61 @@
-.App {
-  font-family: sans-serif;
+/* XModal.css */
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(24, 24, 226, 0.91);
+  width: 400px;
+  padding: 20px;
+  border-radius: 8px;
   text-align: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.modal-content form div {
+  margin-bottom: 20px;
+}
+
+.modal-content form div h2 {
+  margin-bottom: 5px;
+}
+
+.modal-content form input[type="text"],
+.modal-content form input[type="email"],
+.modal-content form input[type="tel"],
+.modal-content form input[type="date"] {
+  width: calc(100% - 20px); /* Adjust width as needed */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
